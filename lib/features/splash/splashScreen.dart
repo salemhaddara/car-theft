@@ -3,6 +3,7 @@
 import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:cartheftsafety/features/welcome/welcomeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class splashScreen extends StatefulWidget {
   const splashScreen({super.key});
@@ -24,6 +25,11 @@ class _splashScreenState extends State<splashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: black,
+      statusBarIconBrightness: Brightness.light,
+    ));
     return Scaffold(
       backgroundColor: black,
       body: Stack(

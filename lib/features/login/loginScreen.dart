@@ -1,12 +1,19 @@
-// ignore_for_file: camel_case_types, non_constant_identifier_names
+// ignore_for_file: camel_case_types, non_constant_identifier_names, use_build_context_synchronously
 
+import 'dart:io';
+
+import 'package:cartheftsafety/config/utils.dart';
 import 'package:cartheftsafety/core/theme/Widgets/MyNavigationBar.dart';
 import 'package:cartheftsafety/core/theme/Widgets/inputfield.dart';
+import 'package:cartheftsafety/core/theme/Widgets/mySnackbar.dart';
 import 'package:cartheftsafety/core/theme/Widgets/signuprichtext.dart';
 import 'package:cartheftsafety/core/theme/Widgets/text400normal.dart';
 import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
+import 'package:cartheftsafety/core/theme/routes/routes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class loginScreen extends StatefulWidget {
   const loginScreen({super.key});
@@ -18,14 +25,10 @@ class loginScreen extends StatefulWidget {
 class _loginScreenState extends State<loginScreen> {
   final formKey = GlobalKey<FormState>();
   String emailcheck = '', passwordcheck = '';
+  bool isLoading = false; // To track loading state
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        systemNavigationBarColor: white,
-        statusBarIconBrightness: Brightness.light,
-        systemNavigationBarIconBrightness: Brightness.dark));
     var size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: black,
@@ -65,12 +68,15 @@ class _loginScreenState extends State<loginScreen> {
                       borderRadius: BorderRadius.all(
                         Radius.circular(18),
                       )),
-                  child: Column(
-                    children: [
-                      _SignInTitle(size),
-                      _form(size, context),
-                      _signinButton(size, context),
-                    ],
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      children: [
+                        _SignInTitle(size),
+                        _form(size, context),
+                        _signinButton(size, context),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -113,7 +119,7 @@ class _loginScreenState extends State<loginScreen> {
       margin: const EdgeInsets.only(top: 26, bottom: 10),
       constraints: const BoxConstraints(maxWidth: 600),
       child: text400normal(
-        text: 'UserName',
+        text: 'Email Address',
         color: white,
         fontsize: size.height * 0.017,
         align: TextAlign.start,
@@ -122,27 +128,24 @@ class _loginScreenState extends State<loginScreen> {
   }
 
   Widget _emailField(Size size, BuildContext blocContext) {
-    return SizedBox(
-      height: 54,
-      child: InputField(
-        hint: '',
-        isPassword: false,
-        icon: Icons.person,
-        validator: (email) {
-          if (email!.isEmpty) {
-            return null;
-          }
-          if (email.isNotEmpty && email.length < 3) {
-            return 'UserName Must be more than 3 characters';
-          }
-
+    return InputField(
+      hint: '',
+      isPassword: false,
+      icon: Icons.person,
+      validator: (email) {
+        if (email!.isEmpty) {
           return null;
-        },
-        initialState: false,
-        onChanged: (text) {
-          // emailcheck = text!;
-        },
-      ),
+        }
+        if (email.isNotEmpty && !utils.isValidEmail(email)) {
+          return 'Enter A Valid email address';
+        }
+
+        return null;
+      },
+      initialState: false,
+      onChanged: (text) {
+        emailcheck = '$text';
+      },
     );
   }
 
@@ -175,81 +178,100 @@ class _loginScreenState extends State<loginScreen> {
       },
       initialState: true,
       onChanged: (text) {
-        passwordcheck = text!;
+        passwordcheck = '$text';
       },
     );
   }
 
   _signinButton(Size size, BuildContext pagecontext) {
-    // bool Navigated = false;
-    // bool isError = false;
-    // return BlocBuilder<loginbloc, loginstate>(builder: (context, state) {
-    //   if (state.formstatus is submissionsuccess && !Navigated) {
-    //     WidgetsBinding.instance.addPostFrameCallback((_) {
-    //       // Navigator.of(pagecontext).pushReplacementNamed(homescreenRoute);
-    //     });
-    //     Navigated = true;
-    //     return Container();
-    //   }
-    //   if (state.formstatus is submissionfailed && !isError) {
-    //     WidgetsBinding.instance.addPostFrameCallback((_) async {
-    //       ScaffoldMessenger.of(pagecontext).showSnackBar(showSnackbar(
-    //           (state.formstatus as submissionfailed).exception.toString(),
-    //           size));
-    //       context.read<loginbloc>().add(returnInitialStatus());
-    //     });
-    //     isError = true;
-    //     return Container();
-    //   }
-    //   return state.formstatus is formsubmitting
-    //       ? Container(
-    //           margin: const EdgeInsets.only(top: 26),
-    //           child: CircularProgressIndicator(
-    //             color: white,
-    //             strokeWidth: 6,
-    //           ),
-    //         )
-    //       : Container(
-    //           margin: const EdgeInsets.only(top: 26),
-    //           child: GestureDetector(
-    //             onTap: () {
-    //               if (emailcheck.isNotEmpty && passwordcheck.isNotEmpty) {
-    //                 if (formKey.currentState!.validate()) {
-    //                   context
-    //                       .read<loginbloc>()
-    //                       .add((loginSubmitted(emailcheck, passwordcheck)));
-    //                 }
-    //               }
-    //             },
-    //             child:
-    return InkWell(
-      onTap: () {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) {
-          return MyNavigationBar(index: 0);
-        }));
-      },
-      child: Container(
-        height: size.height * 0.06,
-        width: size.width / 1.5,
-        constraints: const BoxConstraints(maxWidth: 600),
-        decoration: BoxDecoration(
+    return Padding(
+      padding: const EdgeInsets.only(top: 30),
+      child: InkWell(
+        onTap: isLoading
+            ? null
+            : () async {
+                setState(() {
+                  isLoading = true;
+                });
+                if (formKey.currentState!.validate() &&
+                    emailcheck.isNotEmpty &&
+                    passwordcheck.isNotEmpty) {
+                  await signInUser();
+                } else {
+                  mySnackbar.showSnackbar(
+                      context, 'Enter Required Credentiels');
+                }
+                setState(() {
+                  isLoading = false;
+                });
+              },
+        borderRadius: const BorderRadius.all(
+          Radius.circular(14),
+        ),
+        child: Container(
+          height: size.height * 0.06,
+          width: size.width / 1.5,
+          constraints: const BoxConstraints(maxWidth: 600),
+          decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(
               Radius.circular(14),
             ),
-            color: black),
-        margin: const EdgeInsets.only(top: 30),
-        alignment: Alignment.center,
-        child: text400normal(
-          text: 'Sign In',
-          fontsize: size.height * 0.02,
-          color: white,
+            color: black,
+          ),
+          alignment: Alignment.center,
+          child: isLoading
+              ? CircularProgressIndicator(
+                  color: white,
+                  strokeWidth: 2,
+                )
+              : text400normal(
+                  text: 'Sign In',
+                  fontsize: size.height * 0.02,
+                  color: white,
+                ),
         ),
       ),
     );
-    //           ),
-    //         );
-    // });
+  }
+
+  Future<void> signInUser() async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: emailcheck, password: passwordcheck);
+
+      if (userCredential.user != null) {
+        String userId = userCredential.user!.uid;
+
+        DocumentSnapshot userData = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .get();
+
+        if (userData.exists) {
+          Map<String, dynamic> user = userData.data() as Map<String, dynamic>;
+
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+
+          await prefs.setString('email', emailcheck);
+          await prefs.setString('fullName', user['fullName']);
+          await prefs.setString('deviceId', user['deviceId']);
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MyNavigationBar(index: 0),
+            ),
+          );
+        } else {
+          mySnackbar.showSnackbar(context, 'User data not found.');
+        }
+      }
+    } on SocketException {
+      mySnackbar.showSnackbar(context, 'Check Your Internet Connection');
+    } catch (e) {
+      mySnackbar.showSnackbar(context, 'User Credentiels are not correct');
+    }
   }
 
   Widget _donthaveaccount(Size size) {
@@ -260,7 +282,10 @@ class _loginScreenState extends State<loginScreen> {
           clickableText: ' Sign Up',
           fontsize: size.height * 0.018,
           onClick: () {
-            // Navigator.pushNamed(context, SignUpscreenRoute);
+            Navigator.pushNamed(
+              context,
+              signUpRoute,
+            );
           }),
     );
   }

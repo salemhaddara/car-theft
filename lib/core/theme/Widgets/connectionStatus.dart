@@ -43,7 +43,7 @@ class connectionStatus extends StatelessWidget {
               Expanded(
                   child: text400normal(
                       text:
-                          'Yur Appereil is Already Connected with Your Device all Features Are enabled',
+                          'Your Appereil is Already Connected with Your Device all Features Are enabled',
                       color: Colors.white,
                       align: TextAlign.center,
                       fontsize: size.width * 0.03))

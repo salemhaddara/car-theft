@@ -3,7 +3,9 @@
 import 'package:cartheftsafety/core/theme/Widgets/text400normal.dart';
 import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:cartheftsafety/features/login/loginScreen.dart';
+import 'package:cartheftsafety/features/signup/SignUpScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class welcomeScreen extends StatefulWidget {
   const welcomeScreen({super.key});
@@ -16,57 +18,71 @@ class _welcomeScreenState extends State<welcomeScreen> {
   late Size size;
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: black,
+      statusBarIconBrightness: Brightness.light,
+    ));
     size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: black,
-      body: Stack(children: [
-        Align(
-          alignment: Alignment.center,
-          child: Container(
-            height: (size.height) / 2,
-            width: (size.width),
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: black,
+        body: Stack(children: [
+          Align(
             alignment: Alignment.center,
-            child: Image.asset('assets/images/car.jpg'),
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            height: (size.height) / 4,
-            width: (size.width),
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return const loginScreen();
-                    }));
-                  },
-                  child: const text400normal(
-                    text: 'Sign in',
-                    color: Colors.white,
-                    fontsize: 20,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    //navigate to sign up
-                  },
-                  child: const text400normal(
-                      text: 'Create an Account',
-                      color: Colors.white,
-                      fontsize: 20),
-                ),
-              ],
+            child: Container(
+              height: (size.height) / 2,
+              width: (size.width),
+              alignment: Alignment.center,
+              child: Image.asset('assets/images/car.jpg'),
             ),
           ),
-        )
-      ]),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: (size.height) / 4,
+              width: (size.width),
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return const loginScreen();
+                      }));
+                    },
+                    child: const text400normal(
+                      text: 'Sign in',
+                      color: Colors.white,
+                      fontsize: 20,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      //navigate to sign up
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return const SignUpScreen();
+                      }));
+                    },
+                    child: const text400normal(
+                        text: 'Create an Account',
+                        color: Colors.white,
+                        fontsize: 20),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ]),
+      ),
     );
   }
 }

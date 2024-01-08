@@ -1,9 +1,10 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, file_names
 
 import 'package:cartheftsafety/core/theme/Widgets/changeModeButton.dart';
 import 'package:cartheftsafety/core/theme/Widgets/connectionStatus.dart';
 import 'package:cartheftsafety/core/theme/Widgets/modeChange.dart';
 import 'package:cartheftsafety/core/theme/Widgets/text400normal.dart';
+import 'package:cartheftsafety/core/theme/Widgets/trackMyCarLog.dart';
 import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:flutter/material.dart';
 
@@ -52,6 +53,7 @@ class _homeScreenState extends State<homeScreen> {
             width: size.width,
             padding: const EdgeInsets.all(16),
             child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   connectionStatus(size: size, status: 'Connected'),
@@ -63,7 +65,12 @@ class _homeScreenState extends State<homeScreen> {
                   modechange(
                     size: size,
                   ),
-                  changeModeButton(size: size)
+                  ChangeModeButton(size: size),
+                  trackMyCarLog(
+                      size: size,
+                      onTap: () {
+                        print('object');
+                      }),
                 ],
               ),
             ),

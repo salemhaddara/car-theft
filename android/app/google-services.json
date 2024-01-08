@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "229012469608",
+    "firebase_url": "https://car-anti-theft-default-rtdb.firebaseio.com",
+    "project_id": "car-anti-theft",
+    "storage_bucket": "car-anti-theft.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:229012469608:android:da0c83b6998c87dcfe48dd",
+        "android_client_info": {
+          "package_name": "com.example.cartheftsafety"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUeV47Vnj3IxTtFmuifN-8hX5cTiSu9bU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

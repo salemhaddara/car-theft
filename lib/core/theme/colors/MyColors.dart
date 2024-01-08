@@ -2,5 +2,5 @@
 
 import 'package:flutter/material.dart';
 
-Color black = const Color.fromARGB(255, 0, 0, 0);
+Color black = const Color.fromARGB(255, 1, 1, 1);
 Color white = const Color.fromARGB(255, 255, 255, 255);

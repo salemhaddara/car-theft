@@ -1,5 +1,8 @@
 import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:cartheftsafety/features/home/homeScreen.dart';
+import 'package:cartheftsafety/features/locationsLog/locationsLog.dart';
+import 'package:cartheftsafety/features/map/mapScreen.dart';
+import 'package:cartheftsafety/features/profile/profileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -54,7 +57,9 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
   List<Widget> _buildScreens() {
     return [
       const homeScreen(),
-      const homeScreen(),
+      mapScreen(),
+      LocationsLog(),
+      const profileScreen(),
     ];
   }
 
@@ -63,6 +68,18 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
       PersistentBottomNavBarItem(
         icon: SvgPicture.asset('assets/images/iconhome.svg'),
         title: 'Home',
+        activeColorPrimary: white,
+        inactiveColorPrimary: white,
+      ),
+      PersistentBottomNavBarItem(
+        icon: SvgPicture.asset('assets/images/carlocation.svg'),
+        title: 'Location',
+        activeColorPrimary: white,
+        inactiveColorPrimary: white,
+      ),
+      PersistentBottomNavBarItem(
+        icon: SvgPicture.asset('assets/images/logswhite.svg'),
+        title: 'Logs',
         activeColorPrimary: white,
         inactiveColorPrimary: white,
       ),
