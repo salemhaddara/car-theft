@@ -1,5 +1,6 @@
 // ignore_for_file: camel_case_types, file_names
 
+import 'package:cartheftsafety/core/theme/Widgets/MyNavigationBar.dart';
 import 'package:cartheftsafety/core/theme/Widgets/changeModeButton.dart';
 import 'package:cartheftsafety/core/theme/Widgets/connectionStatus.dart';
 import 'package:cartheftsafety/core/theme/Widgets/modeChange.dart';
@@ -7,6 +8,7 @@ import 'package:cartheftsafety/core/theme/Widgets/text400normal.dart';
 import 'package:cartheftsafety/core/theme/Widgets/trackMyCarLog.dart';
 import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class homeScreen extends StatefulWidget {
   const homeScreen({super.key});
@@ -30,7 +32,7 @@ class _homeScreenState extends State<homeScreen> {
         elevation: 0,
         leading: Container(),
         title: text400normal(
-            text: 'Car Control',
+            text: 'CAR CONTROL',
             color: white,
             weight: FontWeight.w700,
             fontsize: size.width * 0.05),
@@ -69,7 +71,15 @@ class _homeScreenState extends State<homeScreen> {
                   trackMyCarLog(
                       size: size,
                       onTap: () {
-                        print('object');
+                        PersistentNavBarNavigator.pushNewScreen(
+                          context,
+                          screen: MyNavigationBar(
+                            index: 2,
+                          ),
+                          withNavBar: false,
+                          pageTransitionAnimation:
+                              PageTransitionAnimation.cupertino,
+                        );
                       }),
                 ],
               ),
