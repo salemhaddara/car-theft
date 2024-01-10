@@ -68,7 +68,7 @@ class _InputFieldState extends State<InputField> {
               fillColor: const Color.fromARGB(100, 255, 255, 255),
               prefixIcon: Icon(
                 widget.icon,
-                color: Colors.red,
+                color: blue,
               ),
               errorBorder: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(13)),

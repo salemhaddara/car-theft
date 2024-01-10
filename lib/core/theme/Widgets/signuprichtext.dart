@@ -1,3 +1,6 @@
+// ignore_for_file: camel_case_types
+
+import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,7 +33,7 @@ class signuprichtext extends StatelessWidget {
           TextSpan(
             text: clickableText,
             style: GoogleFonts.montserrat(
-              color: const Color.fromARGB(255, 255, 0, 0),
+              color: blue,
               fontWeight: FontWeight.w400,
               fontSize: fontsize,
             ),

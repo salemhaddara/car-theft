@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, camel_case_types
 
 import 'package:cartheftsafety/core/theme/Widgets/text400normal.dart';
+import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:flutter/material.dart';
 
 class mySnackbar {
@@ -17,7 +18,7 @@ class mySnackbar {
           width: size.width,
           constraints: const BoxConstraints(maxHeight: 100, minHeight: 50),
           decoration: const BoxDecoration(
-              color: Color.fromARGB(50, 255, 255, 255),
+              color: Color.fromARGB(99, 0, 0, 0),
               borderRadius: BorderRadius.all(Radius.circular(25))),
           child: Column(children: [
             const SizedBox(
@@ -27,7 +28,7 @@ class mySnackbar {
                 child: text400normal(
               text: text,
               align: TextAlign.center,
-              color: Colors.red,
+              color: blue,
               fontsize: 16,
             )),
             const SizedBox(

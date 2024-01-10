@@ -25,7 +25,7 @@ class loginScreen extends StatefulWidget {
 class _loginScreenState extends State<loginScreen> {
   final formKey = GlobalKey<FormState>();
   String emailcheck = '', passwordcheck = '';
-  bool isLoading = false; // To track loading state
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +39,14 @@ class _loginScreenState extends State<loginScreen> {
               Align(
                 alignment: Alignment.center,
                 child: Container(
-                  height: size.height / 2,
+                  height: size.height,
                   width: size.width,
-                  alignment: Alignment.center,
+                  alignment: Alignment.bottomCenter,
+                  padding: const EdgeInsets.all(0),
                   child: Image.asset(
                     'assets/images/car.jpg',
+                    height: size.height,
+                    width: size.width,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -61,7 +64,7 @@ class _loginScreenState extends State<loginScreen> {
                 child: Container(
                   height: size.height / 2,
                   margin: const EdgeInsets.all(6),
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   alignment: Alignment.center,
                   decoration: const BoxDecoration(
                       color: Color.fromARGB(50, 255, 255, 255),
@@ -270,6 +273,7 @@ class _loginScreenState extends State<loginScreen> {
     } on SocketException {
       mySnackbar.showSnackbar(context, 'Check Your Internet Connection');
     } catch (e) {
+      print(e);
       mySnackbar.showSnackbar(context, 'User Credentiels are not correct');
     }
   }

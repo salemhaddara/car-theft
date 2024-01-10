@@ -33,7 +33,6 @@ class ChangeModeButton extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     int? userTheftValue = snapshot.data?.snapshot.value as int;
-
                     return Container(
                       width: size.width,
                       height: 100,

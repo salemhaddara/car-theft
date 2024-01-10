@@ -34,10 +34,26 @@ class _welcomeScreenState extends State<welcomeScreen> {
           Align(
             alignment: Alignment.center,
             child: Container(
-              height: (size.height) / 2,
+              height: (size.height),
               width: (size.width),
               alignment: Alignment.center,
-              child: Image.asset('assets/images/car.jpg'),
+              padding: const EdgeInsets.all(0),
+              child: Image.asset(
+                'assets/images/car.jpg',
+                fit: BoxFit.cover,
+                height: size.height,
+                width: size.width,
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: SizedBox(
+              height: size.height / 3,
+              width: size.width,
+              child: Image.asset(
+                'assets/images/logotransparent.png',
+              ),
             ),
           ),
           Align(
@@ -48,34 +64,58 @@ class _welcomeScreenState extends State<welcomeScreen> {
               alignment: Alignment.center,
               child: Column(
                 children: [
-                  GestureDetector(
+                  InkWell(
+                    borderRadius: const BorderRadius.all(Radius.circular(7)),
                     onTap: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return const loginScreen();
-                      }));
-                    },
-                    child: const text400normal(
-                      text: 'Sign in',
-                      color: Colors.white,
-                      fontsize: 20,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      //navigate to sign up
+                      //navigate user to sign up
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {
                         return const SignUpScreen();
                       }));
                     },
-                    child: const text400normal(
-                        text: 'Create an Account',
-                        color: Colors.white,
-                        fontsize: 20),
+                    child: Container(
+                      width: 250,
+                      padding: const EdgeInsets.all(8),
+                      alignment: Alignment.center,
+                      decoration: const BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.all(Radius.circular(7))),
+                      child: text400normal(
+                          text: 'Create an Account',
+                          color: blue,
+                          align: TextAlign.center,
+                          weight: FontWeight.w400,
+                          fontsize: 20),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    borderRadius: const BorderRadius.all(Radius.circular(7)),
+                    onTap: () {
+                      //navigate user to login screen
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return const loginScreen();
+                      }));
+                    },
+                    child: Container(
+                      width: 250,
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 16),
+                      decoration: BoxDecoration(
+                          color: blue,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(7))),
+                      child: text400normal(
+                        text: 'Sign in',
+                        color: black,
+                        weight: FontWeight.w400,
+                        fontsize: 20,
+                      ),
+                    ),
                   ),
                 ],
               ),

@@ -9,6 +9,7 @@ import 'package:cartheftsafety/core/theme/Widgets/signuprichtext.dart';
 import 'package:cartheftsafety/core/theme/Widgets/text400normal.dart';
 import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:cartheftsafety/core/theme/routes/routes.dart';
+import 'package:cartheftsafety/features/login/loginScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             mySnackbar.showSnackbar(
                 context, 'Your Account is successfuly Created');
 
-            Navigator.pushNamed(context, '');
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const loginScreen()));
           }
         } else {
           // Device ID doesn't exist in 'devices' collection
@@ -97,12 +99,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Align(
                 alignment: Alignment.center,
                 child: Container(
-                  height: size.height / 2,
+                  height: size.height,
                   width: size.width,
                   alignment: Alignment.center,
                   child: Image.asset(
                     'assets/images/car.jpg',
                     fit: BoxFit.cover,
+                    height: size.height,
+                    width: size.width,
                   ),
                 ),
               ),

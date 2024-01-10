@@ -100,7 +100,7 @@ class _mapScreenState extends State<mapScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: _moveToCustomerLocation,
-        backgroundColor: Colors.red,
+        backgroundColor: blue,
         child: SvgPicture.asset('assets/images/carlocation.svg'),
       ),
       backgroundColor: black,
