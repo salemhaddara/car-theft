@@ -48,7 +48,7 @@ class modechange extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Container(
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(5),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: !isSecurityMode ? blue : Colors.transparent,
@@ -56,19 +56,17 @@ class modechange extends StatelessWidget {
                               Radius.circular(12),
                             ),
                           ),
-                          child: Expanded(
-                            child: text400normal(
-                              text: "User Mode",
-                              color: !isSecurityMode ? black : Colors.white,
-                              fontsize: 16,
-                              weight: FontWeight.w400,
-                            ),
+                          child: text400normal(
+                            text: "User Mode",
+                            color: !isSecurityMode ? black : Colors.white,
+                            fontsize: 16,
+                            weight: FontWeight.w400,
                           ),
                         ),
                       ),
                       Expanded(
                         child: Container(
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(5),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: isSecurityMode ? blue : Colors.transparent,
@@ -76,13 +74,11 @@ class modechange extends StatelessWidget {
                               Radius.circular(14),
                             ),
                           ),
-                          child: Expanded(
-                            child: text400normal(
-                              text: "Security Mode",
-                              color: !isSecurityMode ? Colors.white : black,
-                              fontsize: 16,
-                              weight: FontWeight.w400,
-                            ),
+                          child: text400normal(
+                            text: "Security Mode",
+                            color: !isSecurityMode ? Colors.white : black,
+                            fontsize: 16,
+                            weight: FontWeight.w400,
                           ),
                         ),
                       ),

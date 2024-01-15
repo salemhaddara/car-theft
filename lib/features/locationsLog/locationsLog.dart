@@ -69,10 +69,9 @@ class _LocationsLogState extends State<LocationsLog> {
       ),
       body: Stack(
         children: [
-          Container(
+          SizedBox(
             height: size.height,
             width: size.width,
-            padding: const EdgeInsets.all(16),
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               itemCount: logItems.length,
@@ -118,7 +117,7 @@ class LogItem {
     return LogItem(
       latitude: snapshot['lat'] ?? 0.0,
       longitude: snapshot['long'] ?? 0.0,
-      timestamp: snapshot['timestamp'] ?? 0,
+      timestamp: snapshot['Timestamp'] ?? 0,
     );
   }
 
