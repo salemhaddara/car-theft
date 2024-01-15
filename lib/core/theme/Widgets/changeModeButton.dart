@@ -21,7 +21,7 @@ class ChangeModeButton extends StatelessWidget {
         } else if (snapshot.hasData) {
           SharedPreferences prefs = snapshot.data!;
           String? deviceId = prefs.getString('deviceId');
-
+          print('device id : $deviceId');
           if (deviceId != null) {
             return Padding(
               padding: const EdgeInsets.only(top: 30, bottom: 10),
@@ -33,6 +33,7 @@ class ChangeModeButton extends StatelessWidget {
                     .onValue,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
+                    print(snapshot.data?.snapshot.value);
                     int? userTheftValue = snapshot.data?.snapshot.value as int;
                     return Container(
                       width: size.width,

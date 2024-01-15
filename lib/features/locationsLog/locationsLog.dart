@@ -142,4 +142,3 @@ class LogItem {
     }
   }
 }
-// https://www.google.com/maps?q=${widget.lattitude},${widget.longitude}'
