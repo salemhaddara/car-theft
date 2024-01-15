@@ -1,11 +1,13 @@
 // ignore_for_file: camel_case_types,file_names
 
+import 'package:cartheftsafety/core/theme/Widgets/mySnackbar.dart';
 import 'package:cartheftsafety/core/theme/Widgets/text400normal.dart';
 import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:cartheftsafety/features/login/loginScreen.dart';
 import 'package:cartheftsafety/features/signup/SignUpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class welcomeScreen extends StatefulWidget {
   const welcomeScreen({super.key});
@@ -16,6 +18,28 @@ class welcomeScreen extends StatefulWidget {
 
 class _welcomeScreenState extends State<welcomeScreen> {
   late Size size;
+  String? token;
+  @override
+  void initState() {
+    super.initState();
+    _setupFirebaseMessaging();
+  }
+
+  _setupFirebaseMessaging() async {
+    final messaging = FirebaseMessaging.instance;
+    await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    token = await messaging.getToken() ?? '';
+    print(token);
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -68,10 +92,16 @@ class _welcomeScreenState extends State<welcomeScreen> {
                     borderRadius: const BorderRadius.all(Radius.circular(7)),
                     onTap: () {
                       //navigate user to sign up
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return const SignUpScreen();
-                      }));
+                      if (token != null) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) {
+                              return const SignUpScreen();
+                            },
+                            settings: RouteSettings(arguments: token)));
+                      } else {
+                        mySnackbar.showSnackbar(
+                            context, 'Check Your Internet Connection');
+                      }
                     },
                     child: Container(
                       width: 250,
@@ -95,10 +125,16 @@ class _welcomeScreenState extends State<welcomeScreen> {
                     borderRadius: const BorderRadius.all(Radius.circular(7)),
                     onTap: () {
                       //navigate user to login screen
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return const loginScreen();
-                      }));
+                      if (token != null) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) {
+                              return const loginScreen();
+                            },
+                            settings: RouteSettings(arguments: token)));
+                      } else {
+                        mySnackbar.showSnackbar(
+                            context, 'Check Your Internet Connection ');
+                      }
                     },
                     child: Container(
                       width: 250,
