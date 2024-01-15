@@ -3,6 +3,7 @@ import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ChangeModeButton extends StatelessWidget {
@@ -23,7 +24,7 @@ class ChangeModeButton extends StatelessWidget {
 
           if (deviceId != null) {
             return Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 30, bottom: 10),
               child: StreamBuilder(
                 stream: FirebaseDatabase.instance
                     .ref()
@@ -35,14 +36,14 @@ class ChangeModeButton extends StatelessWidget {
                     int? userTheftValue = snapshot.data?.snapshot.value as int;
                     return Container(
                       width: size.width,
-                      height: 100,
+                      height: 50,
                       decoration: BoxDecoration(
                         color: Colors.black,
                         borderRadius: BorderRadius.circular(14),
                       ),
                       child: Material(
                         borderRadius: BorderRadius.circular(14),
-                        color: Colors.transparent,
+                        color: blue,
                         child: InkWell(
                           borderRadius: BorderRadius.circular(14),
                           onTap: () {
@@ -64,13 +65,14 @@ class ChangeModeButton extends StatelessWidget {
                                   child: SvgPicture.asset(
                                       'assets/images/change.svg'),
                                 ),
-                                const Expanded(
+                                Expanded(
                                   child: Text(
                                     'Switch Current Mode',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
+                                    style: GoogleFonts.nunitoSans(
+                                      color: black,
                                       fontSize: 18,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ),

@@ -57,8 +57,8 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
   List<Widget> _buildScreens() {
     return [
       const homeScreen(),
-      mapScreen(),
-      LocationsLog(),
+      const mapScreen(),
+      const LocationsLog(),
       const profileScreen(),
     ];
   }
@@ -69,25 +69,25 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
         icon: SvgPicture.asset('assets/images/iconhome.svg'),
         title: 'Home',
         activeColorPrimary: white,
-        inactiveColorPrimary: white,
+        inactiveColorPrimary: blue,
       ),
       PersistentBottomNavBarItem(
         icon: SvgPicture.asset('assets/images/carlocation.svg'),
         title: 'Location',
         activeColorPrimary: white,
-        inactiveColorPrimary: white,
+        inactiveColorPrimary: blue,
       ),
       PersistentBottomNavBarItem(
         icon: SvgPicture.asset('assets/images/logswhite.svg'),
         title: 'Logs',
         activeColorPrimary: white,
-        inactiveColorPrimary: white,
+        inactiveColorPrimary: blue,
       ),
       PersistentBottomNavBarItem(
         icon: SvgPicture.asset('assets/images/iconprofile.svg'),
         title: 'Profile',
         activeColorPrimary: white,
-        inactiveColorPrimary: white,
+        inactiveColorPrimary: blue,
       ),
     ];
   }

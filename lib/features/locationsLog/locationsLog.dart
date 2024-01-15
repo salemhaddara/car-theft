@@ -1,3 +1,4 @@
+import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:cartheftsafety/features/locationsLog/recentlocationswidgets/recentlocation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -59,26 +60,15 @@ class _LocationsLogState extends State<LocationsLog> {
         elevation: 0,
         leading: Container(),
         title: Text(
-          'Recent Location',
+          'RECENT LOCATION',
           style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
+              color: blue,
+              fontWeight: FontWeight.w600,
               fontSize: size.width * 0.05),
         ),
       ),
       body: Stack(
         children: [
-          Opacity(
-            opacity: 0.2,
-            child: SizedBox(
-              height: size.height,
-              width: size.width,
-              child: Image.asset(
-                'assets/images/carback.jpg',
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
           Container(
             height: size.height,
             width: size.width,
@@ -91,8 +81,7 @@ class _LocationsLogState extends State<LocationsLog> {
                   title: recentLocation(
                     size: size,
                     onTap: () {
-                      launchURL(
-                          logItems[index]); // Handle URL launching on item tap
+                      launchURL(logItems[index]);
                     },
                     position: LatLng(
                         logItems[index].latitude, logItems[index].longitude),

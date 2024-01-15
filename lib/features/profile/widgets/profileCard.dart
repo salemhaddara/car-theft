@@ -2,6 +2,7 @@
 
 import 'package:cartheftsafety/core/theme/Widgets/logoutContainer.dart';
 import 'package:cartheftsafety/core/theme/Widgets/text400normal.dart';
+import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:cartheftsafety/features/welcome/welcomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -30,7 +31,7 @@ class profileCard extends StatelessWidget {
           Material(
             elevation: 4,
             borderRadius: const BorderRadius.all(Radius.circular(14)),
-            color: const Color.fromARGB(50, 255, 255, 255),
+            color: blue,
             child: Container(
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -39,7 +40,7 @@ class profileCard extends StatelessWidget {
                     _personalDetailsTitle(),
                     const Divider(
                       height: 1,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     _title('Email'),
                     _value(emailAddress),
@@ -72,7 +73,7 @@ class profileCard extends StatelessWidget {
     return Container(
       alignment: AlignmentDirectional.centerStart,
       child: text400normal(
-        color: Colors.white,
+        color: black,
         fontsize: 16,
         text: text,
       ),
@@ -84,7 +85,7 @@ class profileCard extends StatelessWidget {
       alignment: AlignmentDirectional.centerStart,
       margin: const EdgeInsets.symmetric(vertical: 16),
       child: text400normal(
-        color: Colors.white,
+        color: black,
         fontsize: 16,
         text: text,
       ),
@@ -97,7 +98,7 @@ class profileCard extends StatelessWidget {
       child: Row(
         children: [
           text400normal(
-              text: 'Personal Details', color: Colors.white, fontsize: 16),
+              text: 'Personal Details', color: Colors.black, fontsize: 16),
           Spacer(),
         ],
       ),
@@ -126,7 +127,7 @@ class profileCard extends StatelessWidget {
               child: text400normal(
                 text: username,
                 fontsize: 18,
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ],

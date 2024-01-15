@@ -25,17 +25,6 @@ class _profileScreenState extends State<profileScreen> {
             Expanded(
                 child: Stack(
               children: [
-                Opacity(
-                  opacity: 0.2,
-                  child: SizedBox(
-                    height: size.height,
-                    width: size.width,
-                    child: Image.asset(
-                      'assets/images/carback.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
                 _detailsCard(size),
               ],
             ))

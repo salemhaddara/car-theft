@@ -3,7 +3,6 @@
 import 'package:cartheftsafety/core/theme/Widgets/text400normal.dart';
 import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,7 +16,7 @@ class modechange extends StatelessWidget {
       future: SharedPreferences.getInstance(),
       builder: (context, AsyncSnapshot<SharedPreferences> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator(); // Loading indicator while fetching data
+          return const CircularProgressIndicator();
         } else if (snapshot.hasData) {
           SharedPreferences prefs = snapshot.data!;
           String? deviceId = prefs.getString('deviceId') ?? '';
@@ -38,9 +37,13 @@ class modechange extends StatelessWidget {
                   snapshot.data!.snapshot.value != null) {
                 bool isSecurityMode = snapshot.data!.snapshot.value == 1;
 
-                return SizedBox(
-                  height: 120,
+                return Container(
+                  height: 50,
                   width: size.width,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: blue, width: 1),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(14))),
                   child: Row(
                     children: [
                       Expanded(
@@ -48,30 +51,18 @@ class modechange extends StatelessWidget {
                           padding: const EdgeInsets.all(16),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: !isSecurityMode
-                                ? const Color.fromARGB(50, 255, 255, 255)
-                                : Colors.transparent,
+                            color: !isSecurityMode ? blue : Colors.transparent,
                             borderRadius: const BorderRadius.all(
-                              Radius.circular(18),
+                              Radius.circular(12),
                             ),
                           ),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: SvgPicture.asset(
-                                  'assets/images/driver.svg',
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              Expanded(
-                                child: text400normal(
-                                  text: "User Mode",
-                                  color: white,
-                                  fontsize: 16,
-                                ),
-                              ),
-                            ],
+                          child: Expanded(
+                            child: text400normal(
+                              text: "User Mode",
+                              color: !isSecurityMode ? black : Colors.white,
+                              fontsize: 16,
+                              weight: FontWeight.w400,
+                            ),
                           ),
                         ),
                       ),
@@ -80,30 +71,18 @@ class modechange extends StatelessWidget {
                           padding: const EdgeInsets.all(16),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: isSecurityMode
-                                ? const Color.fromARGB(50, 255, 255, 255)
-                                : Colors.transparent,
+                            color: isSecurityMode ? blue : Colors.transparent,
                             borderRadius: const BorderRadius.all(
-                              Radius.circular(18),
+                              Radius.circular(14),
                             ),
                           ),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: SvgPicture.asset(
-                                  'assets/images/security.svg',
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              Expanded(
-                                child: text400normal(
-                                  text: "Security Mode",
-                                  color: white,
-                                  fontsize: 16,
-                                ),
-                              ),
-                            ],
+                          child: Expanded(
+                            child: text400normal(
+                              text: "Security Mode",
+                              color: !isSecurityMode ? Colors.white : black,
+                              fontsize: 16,
+                              weight: FontWeight.w400,
+                            ),
                           ),
                         ),
                       ),

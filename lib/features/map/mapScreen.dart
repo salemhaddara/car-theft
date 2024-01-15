@@ -100,7 +100,7 @@ class _mapScreenState extends State<mapScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: _moveToCustomerLocation,
-        backgroundColor: blue,
+        backgroundColor: white,
         child: SvgPicture.asset('assets/images/carlocation.svg'),
       ),
       backgroundColor: black,
@@ -111,24 +111,13 @@ class _mapScreenState extends State<mapScreen> {
         elevation: 0,
         leading: Container(),
         title: text400normal(
-            text: 'Car Location',
-            color: white,
+            text: 'CAR LOCATION',
+            color: blue,
             weight: FontWeight.w700,
             fontsize: size.width * 0.05),
       ),
       body: Stack(
         children: [
-          Opacity(
-            opacity: 0.2,
-            child: SizedBox(
-              height: size.height,
-              width: size.width,
-              child: Image.asset(
-                'assets/images/carback.jpg',
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
           Container(
             height: size.height,
             width: size.width,

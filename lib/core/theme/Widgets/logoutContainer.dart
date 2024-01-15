@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, camel_case_types
 
 import 'package:cartheftsafety/core/theme/Widgets/text400normal.dart';
+import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -15,9 +16,9 @@ class logoutContainer extends StatelessWidget {
       height: 70,
       width: size.width,
       margin: const EdgeInsets.only(top: 16),
-      decoration: const BoxDecoration(
-          color: Color.fromARGB(50, 255, 255, 255),
-          borderRadius: BorderRadius.all(
+      decoration: BoxDecoration(
+          color: blue,
+          borderRadius: const BorderRadius.all(
             Radius.circular(18),
           )),
       child: InkWell(
@@ -34,7 +35,7 @@ class logoutContainer extends StatelessWidget {
                     alignment: Alignment.center,
                     child: const text400normal(
                       text: 'Sign Out',
-                      color: Colors.white,
+                      color: Colors.black,
                       fontsize: 20,
                       weight: FontWeight.w500,
                     ))),
