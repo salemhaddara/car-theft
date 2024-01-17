@@ -1,7 +1,9 @@
 // ignore_for_file: camel_case_types,file_names
 
 import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
+import 'package:cartheftsafety/features/home/homeScreen.dart';
 import 'package:cartheftsafety/features/welcome/welcomeScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,9 +18,19 @@ class _splashScreenState extends State<splashScreen> {
   @override
   void initState() {
     super.initState();
+    _navigate();
+  }
+
+  _navigate() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    var user = auth.currentUser;
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return const welcomeScreen();
+        if (user != null) {
+          return const homeScreen();
+        } else {
+          return const welcomeScreen();
+        }
       }));
     });
   }

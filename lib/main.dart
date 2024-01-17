@@ -1,13 +1,16 @@
+import 'package:cartheftsafety/config/notificationsService.dart';
 import 'package:cartheftsafety/core/theme/routes/routes.dart';
+import 'package:cartheftsafety/features/alert/alertScreen.dart';
+import 'package:cartheftsafety/features/home/homeScreen.dart';
 import 'package:cartheftsafety/features/login/loginScreen.dart';
 import 'package:cartheftsafety/features/signup/SignUpScreen.dart';
 import 'package:cartheftsafety/features/splash/splashScreen.dart';
+// import 'package:cartheftsafety/features/splash/splashScreen.dart';
 import 'package:cartheftsafety/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
+// import 'package:rxdart/rxdart.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,34 +18,32 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  final messageStreamController = BehaviorSubject<RemoteMessage>();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  runApp(MaterialApp(
-      home: const splashScreen(),
-      debugShowCheckedModeBanner: false,
-      routes: {
-        loginRoute: (context) => const loginScreen(),
-        signUpRoute: (context) => const SignUpScreen()
-      }));
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    if (kDebugMode) {
-      print('Handling a foreground message: ${message.messageId}');
-      print('Message data: ${message.data}');
-      print('Message notification: ${message.notification?.title}');
-      print('Message notification: ${message.notification?.body}');
-    }
-
-    messageStreamController.sink.add(message);
-  });
+  runApp(const MyApp());
 }
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  if (kDebugMode) {
-    print("Handling a background message: ${message.messageId}");
-    print('Message data: ${message.data}');
-    print('Message notification: ${message.notification?.title}');
-    print('Message notification: ${message.notification?.body}');
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      navigatorKey: NotificationService.navigatorKey,
+      home: const alertScreen(),
+      routes: {
+        loginRoute: (context) => const loginScreen(),
+        signUpRoute: (context) => const SignUpScreen(),
+      },
+      onGenerateRoute: (settings) {
+        final RemoteMessage? initialMessage =
+            settings.arguments as RemoteMessage?;
+        if (initialMessage != null) {
+          return MaterialPageRoute(
+            builder: (context) => const homeScreen(),
+          );
+        }
+        return MaterialPageRoute(builder: (context) => const splashScreen());
+      },
+    );
   }
 }

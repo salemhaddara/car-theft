@@ -254,6 +254,12 @@ class _loginScreenState extends State<loginScreen> {
         if (userData.exists) {
           Map<String, dynamic> user = userData.data() as Map<String, dynamic>;
 
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(userId)
+              .update({
+            'fcm': ModalRoute.of(context)!.settings.arguments as String
+          });
           SharedPreferences prefs = await SharedPreferences.getInstance();
 
           await prefs.setString('email', emailcheck);
@@ -273,7 +279,6 @@ class _loginScreenState extends State<loginScreen> {
     } on SocketException {
       mySnackbar.showSnackbar(context, 'Check Your Internet Connection');
     } catch (e) {
-      print(e);
       mySnackbar.showSnackbar(context, 'User Credentiels are not correct');
     }
   }

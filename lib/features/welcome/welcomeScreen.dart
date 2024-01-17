@@ -7,7 +7,8 @@ import 'package:cartheftsafety/features/login/loginScreen.dart';
 import 'package:cartheftsafety/features/signup/SignUpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+
+import '../../config/notificationsService.dart';
 
 class welcomeScreen extends StatefulWidget {
   const welcomeScreen({super.key});
@@ -19,6 +20,7 @@ class welcomeScreen extends StatefulWidget {
 class _welcomeScreenState extends State<welcomeScreen> {
   late Size size;
   String? token;
+
   @override
   void initState() {
     super.initState();
@@ -26,17 +28,10 @@ class _welcomeScreenState extends State<welcomeScreen> {
   }
 
   _setupFirebaseMessaging() async {
-    final messaging = FirebaseMessaging.instance;
-    await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-    token = await messaging.getToken() ?? '';
+    NotificationService service = NotificationService();
+    service.initializeFirebaseApp(context);
+    service.requestNotificationPermission();
+    service.getDeviceToken().then((value) => token = value);
     print(token);
   }
 

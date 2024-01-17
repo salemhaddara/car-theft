@@ -56,6 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               'fullName': fullNameCheck,
               'email': emailcheck,
               'deviceId': deviceIdCheck,
+              'fcm': ModalRoute.of(context)!.settings.arguments as String
             });
             setState(() {
               isLoading = false;

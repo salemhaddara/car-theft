@@ -4,6 +4,7 @@ import 'package:cartheftsafety/core/theme/Widgets/logoutContainer.dart';
 import 'package:cartheftsafety/core/theme/Widgets/text400normal.dart';
 import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:cartheftsafety/features/welcome/welcomeScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -54,6 +55,8 @@ class profileCard extends StatelessWidget {
           logoutContainer(
             size: size,
             onTap: () async {
+              FirebaseAuth auth = FirebaseAuth.instance;
+              await auth.signOut();
               SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs.clear();
               PersistentNavBarNavigator.pushNewScreen(
