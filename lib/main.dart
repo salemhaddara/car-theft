@@ -1,4 +1,3 @@
-import 'package:cartheftsafety/config/notificationsService.dart';
 import 'package:cartheftsafety/core/theme/routes/routes.dart';
 import 'package:cartheftsafety/features/alert/alertScreen.dart';
 import 'package:cartheftsafety/features/login/loginScreen.dart';
