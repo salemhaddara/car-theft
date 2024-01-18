@@ -1,7 +1,7 @@
 // ignore_for_file: camel_case_types,file_names
 
+import 'package:cartheftsafety/core/theme/Widgets/MyNavigationBar.dart';
 import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
-import 'package:cartheftsafety/features/home/homeScreen.dart';
 import 'package:cartheftsafety/features/welcome/welcomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,9 @@ class _splashScreenState extends State<splashScreen> {
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.of(context).push(MaterialPageRoute(builder: (context) {
         if (user != null) {
-          return const homeScreen();
+          return MyNavigationBar(
+            index: 0,
+          );
         } else {
           return const welcomeScreen();
         }

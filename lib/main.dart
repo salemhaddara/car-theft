@@ -1,7 +1,6 @@
 import 'package:cartheftsafety/config/notificationsService.dart';
 import 'package:cartheftsafety/core/theme/routes/routes.dart';
 import 'package:cartheftsafety/features/alert/alertScreen.dart';
-import 'package:cartheftsafety/features/home/homeScreen.dart';
 import 'package:cartheftsafety/features/login/loginScreen.dart';
 import 'package:cartheftsafety/features/signup/SignUpScreen.dart';
 import 'package:cartheftsafety/features/splash/splashScreen.dart';
@@ -29,7 +28,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorKey: NotificationService.navigatorKey,
-      home: const alertScreen(),
       routes: {
         loginRoute: (context) => const loginScreen(),
         signUpRoute: (context) => const SignUpScreen(),
@@ -39,7 +37,7 @@ class MyApp extends StatelessWidget {
             settings.arguments as RemoteMessage?;
         if (initialMessage != null) {
           return MaterialPageRoute(
-            builder: (context) => const homeScreen(),
+            builder: (context) => const alertScreen(),
           );
         }
         return MaterialPageRoute(builder: (context) => const splashScreen());

@@ -4,6 +4,7 @@ import 'package:cartheftsafety/core/theme/Widgets/logoutContainer.dart';
 import 'package:cartheftsafety/core/theme/Widgets/text400normal.dart';
 import 'package:cartheftsafety/core/theme/colors/MyColors.dart';
 import 'package:cartheftsafety/features/welcome/welcomeScreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -57,8 +58,19 @@ class profileCard extends StatelessWidget {
             onTap: () async {
               FirebaseAuth auth = FirebaseAuth.instance;
               await auth.signOut();
+              FirebaseFirestore d = FirebaseFirestore.instance;
               SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs.clear();
+
+              d
+                  .collection('users')
+                  .where('deviceId', isEqualTo: prefs.getString('deviceId'))
+                  .get()
+                  .then((value) {
+                d
+                    .collection('users')
+                    .doc(value.docs.first.id)
+                    .update({'fcm': ''});
+              });
               PersistentNavBarNavigator.pushNewScreen(
                 context,
                 screen: const welcomeScreen(),
